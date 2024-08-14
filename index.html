@@ -372,14 +372,13 @@
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
                 .then(response => response.json())
                 .then(data => {
-                    // Adjust indices based on your Google Sheet structure
                     propertyData = data.slice(1).map(row => {
                         return {
-                            ListAgentFullName: row[46] || 'N/A',  // Column AU: Agent Name
-                            ListAgentDirectPhone: row[41] || 'N/A',  // Column AS: Phone Number
-                            Address: row[2] || 'N/A',  // Column C: Address
-                            City: row[6] || 'N/A',  // Column G: City
-                            BuyerAgencyCompensation: row[53] || 'N/A'  // Column BB: Buyer's Agency Compensation
+                            ListAgentFullName: row[46] || 'N/A', // Column AU: Agent Name
+                            ListAgentDirectPhone: row[44] || 'N/A', // Column AS: Phone Number
+                            Address: row[2] || 'N/A', // Column C: Address
+                            City: row[6] || 'N/A', // Column G: City
+                            BuyerAgencyCompensation: row[53] || 'N/A' // Column BB: Buyer's Agency Compensation
                         };
                     });
                     document.getElementById('loadingSpinner').style.display = 'none';
@@ -413,12 +412,7 @@
             );
     
             if (sortField) {
-                results.sort((a, b) => {
-                    if (typeof a[sortField] === 'string') {
-                        return a[sortField].localeCompare(b[sortField]);
-                    }
-                    return a[sortField] - b[sortField];
-                });
+                results.sort((a, b) => a[sortField].localeCompare(b[sortField]));
             }
     
             displayResults(results);
@@ -426,8 +420,8 @@
     
         function displayResults(results) {
             const resultsContainer = document.getElementById('results');
-            const noResults = document.getElementById('noResults');
             resultsContainer.innerHTML = '';
+            const noResults = document.getElementById('noResults');
     
             if (results.length === 0) {
                 noResults.style.display = 'block';
@@ -450,8 +444,7 @@
     
         function highlight(text) {
             const query = document.getElementById('searchBar').value.toLowerCase();
-            if (!query || !text) return text;
-            return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
+            return text ? text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`) : text;
         }
     
         function clearSearch() {
@@ -500,12 +493,12 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ data: [[agentName, phoneNumber, licenseNumber, address, city, price, compensation]] })
+                body: JSON.stringify(newListing)
             })
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                propertyData.push(newListing); 
+                propertyData.push(newListing);
                 clearSearch();
                 alert('Listing added successfully.');
             })
@@ -515,10 +508,5 @@
             });
         }
     </script>
-    
-    
-    
-    
-
 </body>
 </html>
