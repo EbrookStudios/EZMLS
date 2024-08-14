@@ -362,27 +362,27 @@
         let propertyData = [];
 
         document.addEventListener('DOMContentLoaded', function () {
-            const visitCount = localStorage.getItem('visitCount') || 0;
-            localStorage.setItem('visitCount', Number(visitCount) + 1);
-            document.getElementById('visitCount').textContent = localStorage.getItem('visitCount');
-            document.getElementById('theme-icon').style.display = 'none';
+            fetchPropertyData();
+            initializeEventListeners();
         });
 
-        document.getElementById('loadingSpinner').style.display = 'block';
+        function fetchPropertyData() {
+            document.getElementById('loadingSpinner').style.display = 'block';
 
-        fetch('path_to_your_json_file.json')
-            .then(response => response.json())
-            .then(jsonData => {
-                propertyData = jsonData;
-                document.getElementById('loadingSpinner').style.display = 'none';
-                initializeEventListeners();
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('noResults').style.display = 'block';
-                document.getElementById('noResults').textContent = 'Failed to load data. Please enter a search term.';
-            });
+            fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
+                .then(response => response.json())
+                .then(jsonData => {
+                    propertyData = jsonData;
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    search(); // Trigger search to display data on load
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    document.getElementById('noResults').style.display = 'block';
+                    document.getElementById('noResults').textContent = 'Failed to load data. Please enter a search term.';
+                });
+        }
 
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
@@ -472,8 +472,8 @@
             const price = document.getElementById('price').value.trim();
             const compensation = document.getElementById('compensation').value.trim();
 
-            if (!agentName || !phoneNumber || !licenseNumber || !address || !city || !price || !compensation) {
-                alert('Please fill out all fields.');
+            if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
+                alert('Please fill out all required fields.');
                 return;
             }
 
