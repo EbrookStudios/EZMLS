@@ -373,6 +373,8 @@
                 .then(response => response.json())
                 .then(data => {
                     // Adjust indices based on your Google Sheet structure
+                    console.log(data[1]); // Log the first data row to understand the structure
+                    
                     propertyData = data.slice(1).map(row => {
                         return {
                             ListAgentFullName: row[48] || 'N/A',  // Adjusted index for Agent Name
@@ -515,6 +517,7 @@
             });
         }
     </script>
+    
     
     
 
