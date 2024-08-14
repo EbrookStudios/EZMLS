@@ -360,39 +360,39 @@
 
     <script>
         let propertyData = [];
-
+    
         document.addEventListener('DOMContentLoaded', function () {
             fetchPropertyData();
             initializeEventListeners();
         });
-
+    
         function fetchPropertyData() {
             document.getElementById('loadingSpinner').style.display = 'block';
-
+    
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
                 .then(response => response.json())
                 .then(data => {
-                    // Assuming the first row in the data array is the header row
+                    // Adjust indices based on your Google Sheet structure
                     propertyData = data.slice(1).map(row => {
                         return {
-                            ListAgentFullName: row[0] || 'N/A', // Agent Name column
-                            ListAgentDirectPhone: row[1] || 'N/A', // Phone Number column
-                            Address: row[2] || 'N/A', // Address column
-                            City: row[3] || 'N/A', // City column
-                            BuyerAgencyCompensation: row[4] || 'N/A' // Buyer's Agency Compensation column
+                            ListAgentFullName: row[0] || 'N/A',  // Column 1: Agent Name
+                            ListAgentDirectPhone: row[1] || 'N/A',  // Column 2: Phone Number
+                            Address: row[2] || 'N/A',  // Column 3: Address
+                            City: row[3] || 'N/A',  // Column 4: City
+                            BuyerAgencyCompensation: row[4] || 'N/A'  // Column 5: Buyer's Agency Compensation
                         };
                     });
                     document.getElementById('loadingSpinner').style.display = 'none';
-                    search(); // Trigger search to display data on load
+                    search(); // Display data on load
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                     document.getElementById('loadingSpinner').style.display = 'none';
                     document.getElementById('noResults').style.display = 'block';
-                    document.getElementById('noResults').textContent = 'Failed to load data. Please enter a search term.';
+                    document.getElementById('noResults').textContent = 'Failed to load data. Please try again.';
                 });
         }
-
+    
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
             document.getElementById('sort').addEventListener('change', search);
@@ -401,17 +401,17 @@
             document.getElementById('addListingButton').addEventListener('click', showAddListingForm);
             document.getElementById('submitListing').addEventListener('click', addNewListing);
         }
-
+    
         function search() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             const sortField = document.getElementById('sort').value;
-
+    
             let results = propertyData.filter(item =>
                 Object.values(item).some(val =>
                     String(val).toLowerCase().includes(query)
                 )
             );
-
+    
             if (sortField) {
                 results.sort((a, b) => {
                     if (typeof a[sortField] === 'string') {
@@ -420,15 +420,15 @@
                     return a[sortField] - b[sortField];
                 });
             }
-
+    
             displayResults(results);
         }
-
+    
         function displayResults(results) {
             const resultsContainer = document.getElementById('results');
             const noResults = document.getElementById('noResults');
             resultsContainer.innerHTML = '';
-
+    
             if (results.length === 0) {
                 noResults.style.display = 'block';
                 noResults.textContent = 'No results found.';
@@ -447,19 +447,19 @@
                 });
             }
         }
-
+    
         function highlight(text) {
             const query = document.getElementById('searchBar').value.toLowerCase();
             if (!query || !text) return text;
             return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
         }
-
+    
         function clearSearch() {
             document.getElementById('searchBar').value = '';
             document.getElementById('sort').value = '';
             search();
         }
-
+    
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
@@ -467,11 +467,11 @@
             themeIcon.classList.toggle('fa-moon');
             themeIcon.classList.toggle('fa-sun');
         }
-
+    
         function showAddListingForm() {
             document.getElementById('addListingForm').style.display = 'flex';
         }
-
+    
         function addNewListing() {
             const agentName = document.getElementById('agentName').value.trim();
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
@@ -480,12 +480,12 @@
             const city = document.getElementById('city').value.trim();
             const price = document.getElementById('price').value.trim();
             const compensation = document.getElementById('compensation').value.trim();
-
+    
             if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
                 alert('Please fill out all required fields.');
                 return;
             }
-
+    
             const newListing = {
                 ListAgentFullName: agentName,
                 ListAgentDirectPhone: phoneNumber,
@@ -494,8 +494,7 @@
                 BuyerAgencyCompensation: compensation,
                 timestamp: new Date().toISOString(),
             };
-
-            // Send data to the server
+    
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
                 method: 'POST',
                 headers: {
@@ -506,8 +505,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                propertyData.push(newListing); // Update local data
-                clearSearch(); // Clear the form and refresh the table
+                propertyData.push(newListing); 
+                clearSearch();
                 alert('Listing added successfully.');
             })
             .catch((error) => {
@@ -516,6 +515,7 @@
             });
         }
     </script>
+    
 
 </body>
 </html>
