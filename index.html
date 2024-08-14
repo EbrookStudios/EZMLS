@@ -375,11 +375,11 @@
                     // Assuming the first row in the data array is the header row
                     propertyData = data.slice(1).map(row => {
                         return {
-                            ListAgentFullName: row[0] || 'N/A', // Agent Name column (adjust index if necessary)
-                            ListAgentDirectPhone: row[1] || 'N/A', // Phone Number column (adjust index if necessary)
-                            Address: row[2] || 'N/A', // Address column (adjust index if necessary)
-                            City: row[3] || 'N/A', // City column (adjust index if necessary)
-                            BuyerAgencyCompensation: row[4] || 'N/A' // Buyer's Agency Compensation column (adjust index if necessary)
+                            ListAgentFullName: row[0] || 'N/A', // Agent Name column
+                            ListAgentDirectPhone: row[1] || 'N/A', // Phone Number column
+                            Address: row[2] || 'N/A', // Address column
+                            City: row[3] || 'N/A', // City column
+                            BuyerAgencyCompensation: row[4] || 'N/A' // Buyer's Agency Compensation column
                         };
                     });
                     document.getElementById('loadingSpinner').style.display = 'none';
@@ -392,8 +392,6 @@
                     document.getElementById('noResults').textContent = 'Failed to load data. Please enter a search term.';
                 });
         }
-
-
 
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
@@ -518,5 +516,6 @@
             });
         }
     </script>
+
 </body>
 </html>
