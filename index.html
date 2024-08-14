@@ -375,11 +375,11 @@
                     // Adjust indices based on your Google Sheet structure
                     propertyData = data.slice(1).map(row => {
                         return {
-                            ListAgentFullName: row[0] || 'N/A',  // Column 1: Agent Name
-                            ListAgentDirectPhone: row[1] || 'N/A',  // Column 2: Phone Number
-                            Address: row[2] || 'N/A',  // Column 3: Address
-                            City: row[3] || 'N/A',  // Column 4: City
-                            BuyerAgencyCompensation: row[4] || 'N/A'  // Column 5: Buyer's Agency Compensation
+                            ListAgentFullName: row[48] || 'N/A',  // Adjusted index for Agent Name
+                            ListAgentDirectPhone: row[47] || 'N/A',  // Adjusted index for Phone Number
+                            Address: row[2] || 'N/A',  // Adjusted index for Address
+                            City: row[6] || 'N/A',  // Adjusted index for City
+                            BuyerAgencyCompensation: row[59] || 'N/A'  // Adjusted index for Buyer's Agency Compensation
                         };
                     });
                     document.getElementById('loadingSpinner').style.display = 'none';
@@ -515,6 +515,7 @@
             });
         }
     </script>
+    
     
 
 </body>
