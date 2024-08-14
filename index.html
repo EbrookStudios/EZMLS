@@ -71,12 +71,6 @@
             margin-top: 5px;
         }
 
-        .theme-toggle {
-            cursor: pointer;
-            font-size: 20px;
-            color: #f0f0f0;
-        }
-
         .add-listing-btn {
             background-color: #00bcd4;
             color: #1c1c1c;
@@ -291,9 +285,6 @@
             <p>Search and Manage Property Listings</p>
         </div>
         <div class="header-controls">
-            <div class="theme-toggle">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </div>
             <button id="addListingButton" class="add-listing-btn">Add Listing</button>
         </div>
     </header>
@@ -394,7 +385,6 @@
             document.getElementById('searchBar').addEventListener('input', search);
             document.getElementById('sort').addEventListener('change', search);
             document.getElementById('clearSearch').addEventListener('click', clearSearch);
-            document.getElementById('theme-icon').addEventListener('click', toggleTheme);
             document.getElementById('addListingButton').addEventListener('click', showAddListingForm);
             document.getElementById('submitListing').addEventListener('click', addNewListing);
         }
@@ -446,14 +436,6 @@
             document.getElementById('searchBar').value = '';
             document.getElementById('sort').value = '';
             search();
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            body.classList.toggle('dark-theme');
-            themeIcon.classList.toggle('fa-moon');
-            themeIcon.classList.toggle('fa-sun');
         }
 
         function showAddListingForm() {
