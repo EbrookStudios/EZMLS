@@ -17,8 +17,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212; /* Dark background for body */
-            color: #ccc; /* Light grey text for better readability on dark background */
+            background-color: #121212;
+            color: #ccc;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -28,9 +28,9 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background: #333; /* Darker shade for header */
-            color: #fff; /* White text color */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+            background: #222;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             text-align: center;
             position: sticky;
             top: 0;
@@ -43,11 +43,7 @@
         }
         .logo h1 {
             margin: 0;
-            font-size: 28px;
-        }
-        .logo p {
-            margin: 5px 0 0;
-            font-size: 16px;
+            font-size: 32px;
         }
         .header-controls {
             display: flex;
@@ -55,7 +51,7 @@
             margin-top: 15px;
         }
         .add-listing-btn {
-            background-color: #4CAF50; /* Green button */
+            background-color: #1DB954;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -66,7 +62,7 @@
             font-size: 16px;
         }
         .add-listing-btn:hover {
-            background-color: #388E3C;
+            background-color: #1ED760;
             transform: translateY(-2px);
         }
         .modal {
@@ -78,15 +74,15 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8); /* Darker modal background */
+            background-color: rgba(0, 0, 0, 0.9);
             padding-top: 60px;
         }
         .modal-content {
-            background-color: #222; /* Dark background for modal content */
-            color: #ddd; /* Light text color for readability */
+            background-color: #222;
+            color: #ddd;
             margin: 5% auto;
             padding: 20px;
-            border: 1px solid #444; /* Dark border */
+            border: 1px solid #444;
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
@@ -108,35 +104,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #333; /* Dark background for forms */
+            background: #333;
             padding: 30px;
             border-radius: 15px;
             max-width: 600px;
             width: 100%;
             margin: 30px auto;
         }
-        .add-listing-form input,
-        .add-listing-form select {
+        .add-listing-form input {
             width: 100%;
             margin-bottom: 20px;
             padding: 15px;
             border-radius: 10px;
             border: 2px solid #007bff;
-            background: #222; /* Dark backgrounds for input */
-            color: #ddd; /* Light text color */
+            background: #222;
+            color: #ddd;
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
             font-size: 16px;
             transition: all 0.3s ease-in-out;
         }
-        .add-listing-form input:focus,
-        .add-listing-form select:focus {
+        .add-listing-form input:focus {
             outline: none;
             box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
         }
         .add-listing-form button {
             padding: 15px 30px;
             border-radius: 30px;
-            background: #007bff; /* Consistent blue for buttons */
+            background: #007bff;
             color: white;
             border: none;
             cursor: pointer;
@@ -163,61 +157,20 @@
         }
         #searchBar {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             padding: 15px;
-            font-size: 18px;
+            font-size: 22px;
             border-radius: 30px;
-            border: 2px solid #007bff;
+            border: 2px solid #1DB954;
             background: #222;
             color: #ddd;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(29, 185, 84, 0.2);
             transition: all 0.3s ease-in-out;
             margin-bottom: 20px;
         }
         #searchBar:focus {
             outline: none;
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
-        }
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 600px;
-            flex-wrap: wrap;
-        }
-        #sort {
-            padding: 12px;
-            font-size: 18px;
-            border-radius: 30px;
-            background: #fff;
-            color: #333;
-            border: 2px solid #007bff;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-            flex: 1;
-            margin-right: 15px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        #sort:hover {
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
-        }
-        #clearSearch {
-            padding: 12px 20px;
-            font-size: 18px;
-            border-radius: 30px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            flex: 1;
-        }
-        #clearSearch:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(29, 185, 84, 0.5);
         }
         #resultsTable {
             width: 100%;
@@ -253,7 +206,7 @@
             font-weight: 600;
         }
         footer {
-            background: #333;
+            background: #222;
             color: #fff;
             padding: 30px;
             text-align: center;
@@ -274,39 +227,33 @@
                 max-width: 100px;
             }
             .logo h1 {
-                font-size: 20px;
-            }
-            .logo p {
-                font-size: 12px;
-            }
-            #sort, #clearSearch {
-                font-size: 14px;
-                padding: 8px;
+                font-size: 24px;
             }
             #searchBar {
-                font-size: 14px;
+                font-size: 16px;
                 padding: 10px;
             }
             #resultsTable th, #resultsTable td {
-                font-size: 12px;
+                font-size: 14px;
                 padding: 8px;
             }
-            .add-listing-form input, .add-listing-form select, .add-listing-form button {
-                font-size: 12px;
-                padding: 8px;
+            .add-listing-form input, .add-listing-form button {
+                font-size: 14px;
+                padding: 10px;
             }
             footer .disclaimer {
-                font-size: 10px;
+                font-size: 12px;
             }
         }
     </style>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
     <header>
         <div class="logo">
             <img src="EZ-MLS.png" alt="EZ-MLS Logo">
-            <h1>EZ-MLS Property Search</h1>
-            <p>Find the best properties at your fingertips</p>
+            <h1>EZ-MLS Marketplace Search</h1>
+            <p>Mahoning, Trumbull, Columbinana as of August 12, 2024</p>
         </div>
         <div class="header-controls">
             <button class="add-listing-btn" id="addListingButton">Add Listing</button>
@@ -315,15 +262,6 @@
     <main>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Search properties...">
-            <div class="controls">
-                <select id="sort">
-                    <option value="">Sort by</option>
-                    <option value="ListAgentFullName">Agent Name</option>
-                    <option value="City">City</option>
-                    <option value="BuyerAgencyCompensation">Compensation</option>
-                </select>
-                <button id="clearSearch">Clear Search</button>
-            </div>
         </div>
         <div id="loadingSpinner" style="display: none;">Loading...</div>
         <table id="resultsTable">
@@ -335,7 +273,6 @@
                     <th>City</th>
                     <th>Compensation</th>
                     <th>New</th>
-                    <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody id="results">
@@ -353,12 +290,14 @@
             <span class="close">&times;</span>
             <form class="add-listing-form" id="addListingForm">
                 <h2>Add a New Listing</h2>
-                <label for="agentName">Agent Name:</label>
-                <input type="text" id="agentName" name="agentName" autocomplete="off" placeholder="Start typing name..." required>
-                <div id="agentList" class="suggestions"></div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+                
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
                 
                 <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required>
+                <input type="text" id="address" name="address" required autocomplete="off">
                 
                 <label for="price">Price:</label>
                 <input type="text" id="price" name="price" required>
@@ -368,37 +307,10 @@
                 
                 <button type="button" id="submitListing">Submit Listing</button>
             </form>
-            
         </div>
     </div>
-</body>
-</html>
-
-
-
-
+    
     <script>
-        function formatPhoneNumber(input) {
-            let numbers = input.value.replace(/\D/g, '');
-            let formattedNumber = '';
-            for (let i = 0; i < numbers.length; i++) {
-                if (i === 3 || i === 6) {
-                    formattedNumber += '-';
-                }
-                formattedNumber += numbers[i];
-            }
-            input.value = formattedNumber.substring(0, 12); // Limit to the format xxx-xxx-xxxx
-        }
-
-
-        document.getElementById('submitListing').addEventListener('click', function() {
-            var form = document.getElementById('addListingForm');
-            if (form.checkValidity()) {
-                form.submit();
-            } else {
-                alert('Please fill out all required fields correctly.');
-            }
-        });
         document.addEventListener('DOMContentLoaded', function () {
             fetchPropertyData();
             initializeEventListeners();
@@ -411,16 +323,14 @@
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Log the data to inspect its structure
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [46]), // Corrected index for agent name
-                        ListAgentDirectPhone: findPhoneNumber(row), // Automatically find the phone number
-                        LicenseNumber: getNextValidValue(row, [49]), // Corrected index for license number
-                        Address: getNextValidValue(row, [2]), // Corrected index for address
-                        City: getNextValidValue(row, [6]), // Corrected index for city
-                        BuyerAgencyCompensation: findCompensation(row), // Automatically find the compensation
-                        IsNewListing: row[84] === 'TRUE', // Corrected index for new listing
-                        EntryTimestamp: row[83] || 'N/A' // Corrected index for entry timestamp
+                        ListAgentFullName: getNextValidValue(row, [46]), 
+                        ListAgentDirectPhone: findPhoneNumber(row), 
+                        LicenseNumber: getNextValidValue(row, [49]), 
+                        Address: getNextValidValue(row, [2]), 
+                        City: getNextValidValue(row, [6]), 
+                        BuyerAgencyCompensation: findCompensation(row), 
+                        IsNewListing: row[84] === 'TRUE' 
                     }));
                     search();
                 })
@@ -433,73 +343,39 @@
                     document.getElementById('loadingSpinner').style.display = 'none';
                 });
         }
-
-        function fetchPropertyData() {
-            document.getElementById('loadingSpinner').style.display = 'block';
-            fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Log the data to inspect its structure
-                    propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [46]), // Corrected index for agent name
-                        ListAgentDirectPhone: findPhoneNumber(row), // Automatically find the phone number
-                        LicenseNumber: getNextValidValue(row, [49]), // Corrected index for license number
-                        Address: getNextValidValue(row, [2]), // Corrected index for address
-                        City: getNextValidValue(row, [6]), // Corrected index for city
-                        BuyerAgencyCompensation: findCompensation(row), // Automatically find the compensation
-                        IsNewListing: row[84] === 'TRUE', // Corrected index for new listing
-                        EntryTimestamp: row[83] || 'N/A' // Corrected index for entry timestamp
-                    }));
-                    search();
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    document.getElementById('noResults').style.display = 'block';
-                    document.getElementById('noResults').textContent = 'Failed to load data. Please try again.';
-                })
-                .finally(() => {
-                    document.getElementById('loadingSpinner').style.display = 'none';
-                });
-        }
-
 
         function findPhoneNumber(row) {
-            const phoneRegex = /\d{3}-\d{3}-\d{4}/; // Regular expression to match phone number format
+            const phoneRegex = /\d{3}-\d{3}-\d{4}/; 
             for (let i = 0; i < row.length; i++) {
                 const value = row[i];
                 if (phoneRegex.test(value)) {
                     return value;
                 }
             }
-            return 'N/A'; // Return 'N/A' if no valid phone number is found
+            return 'N/A'; 
         }
 
         function findCompensation(row) {
-            const compensationAmountIndex = 53; // Index where the compensation amount is stored
-            const compensationTypeIndex = 54; // Index where the compensation type ($ or %) is stored
-            const compensationRemarksIndex = 58; // Index where any remarks or explanations are stored
+            const compensationAmountIndex = 53; 
+            const compensationTypeIndex = 54; 
+            const compensationRemarksIndex = 58; 
 
             let compensationAmount = row[compensationAmountIndex] || '';
             let compensationType = row[compensationTypeIndex] || '';
             let compensationRemarks = row[compensationRemarksIndex] || '';
 
-            // Combine amount and type if both are available
             let compensation = (compensationAmount + compensationType).trim();
 
-            // If there's a valid compensation value, use it
             if (compensation) {
                 return compensation;
             }
 
-            // If there's a remark, use it
             if (compensationRemarks) {
                 return compensationRemarks;
             }
 
-            // Default to 'N/A' if nothing is valid
             return 'N/A';
         }
-
 
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
@@ -508,18 +384,11 @@
                     return value;
                 }
             }
-            return 'N/A'; // Return 'N/A' if no valid value is found
+            return 'N/A'; 
         }
-
-
-
-
-
-
 
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
-            document.getElementById('sort').addEventListener('change', search);
             document.getElementById('clearSearch').addEventListener('click', clearSearch);
             document.getElementById('addListingButton').addEventListener('click', openAddListingModal);
             document.getElementById('submitListing').addEventListener('click', addNewListing);
@@ -530,20 +399,17 @@
                     modal.style.display = "none";
                 }
             });
+
+            const autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'), { types: ['address'] });
         }
 
         function search() {
             const query = document.getElementById('searchBar').value.toLowerCase();
-            const sortField = document.getElementById('sort').value;
             let results = propertyData.filter(item =>
                 Object.values(item).some(val =>
                     val !== null && val !== undefined && String(val).toLowerCase().includes(query)
                 )
             );
-
-            if (sortField) {
-                results.sort((a, b) => (a[sortField] || '').localeCompare(b[sortField] || ''));
-            }
 
             displayResults(results);
         }
@@ -553,119 +419,86 @@
             resultsContainer.innerHTML = '';
             const noResults = document.getElementById('noResults');
 
-if (results.length === 0) {
-    noResults.style.display = 'block';
-    noResults.textContent = 'No results found.';
-} else {
-    noResults.style.display = 'none';
-    results.forEach(result => {
-        const isNew = result.IsNewListing ? '⭐' : '';
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${highlight(result.ListAgentFullName || 'N/A')}</td>
-            <td>${highlight(result.ListAgentDirectPhone || 'N/A')}</td>
-            <td>${highlight(result.Address || 'N/A')}</td>
-            <td>${highlight(result.City || 'N/A')}</td>
-            <td>${highlight(result.BuyerAgencyCompensation || 'N/A')}</td>
-            <td>${isNew}</td>
-            <td>${highlight(result.EntryTimestamp || 'N/A')}</td>
-        `;
-        resultsContainer.appendChild(tr);
-    });
-}
-}
+            if (results.length === 0) {
+                noResults.style.display = 'block';
+                noResults.textContent = 'No results found.';
+            } else {
+                noResults.style.display = 'none';
+                results.forEach(result => {
+                    const isNew = result.IsNewListing ? '⭐' : '';
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${highlight(result.ListAgentFullName || 'N/A')}</td>
+                        <td>${highlight(result.ListAgentDirectPhone || 'N/A')}</td>
+                        <td>${highlight(result.Address || 'N/A')}</td>
+                        <td>${highlight(result.City || 'N/A')}</td>
+                        <td>${highlight(result.BuyerAgencyCompensation || 'N/A')}</td>
+                        <td>${isNew}</td>
+                    `;
+                    resultsContainer.appendChild(tr);
+                });
+            }
+        }
 
-function highlight(text) {
-const query = document.getElementById('searchBar').value.toLowerCase();
-if (text === undefined || text === null) {
-    return ''; // Return an empty string if the text is undefined or null
-}
-return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
-}
+        function highlight(text) {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            if (text === undefined || text === null) {
+                return ''; 
+            }
+            return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
+        }
 
-function clearSearch() {
-document.getElementById('searchBar').value = '';
-document.getElementById('sort').value = '';
-search();
-}
+        function clearSearch() {
+            document.getElementById('searchBar').value = '';
+            search();
+        }
 
-function openAddListingModal() {
-document.getElementById('addListingModal').style.display = 'block';
-}
+        function openAddListingModal() {
+            document.getElementById('addListingModal').style.display = 'block';
+        }
 
-function closeAddListingModal() {
-document.getElementById('addListingModal').style.display = 'none';
-}
+        function closeAddListingModal() {
+            document.getElementById('addListingModal').style.display = 'none';
+        }
 
-function addNewListing() {
-    const agentName = document.getElementById('agentName').value.trim();
-    const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const licenseNumber = document.getElementById('licenseNumber').value.trim();
-    const address = document.getElementById('address').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const price = document.getElementById('price').value.trim();
-    const compensationValue = document.getElementById('compensationValue').value.trim();
-    const compensationUnit = document.getElementById('compensationUnit').value.trim();
-    
-    if (!agentName || !phoneNumber || !address || !city || !price || !compensationValue || !compensationUnit) {
-        alert('Please fill out all required fields.');
-        return;
-    }
-    
-    // Ensure phone number format is correct
-    const phonePattern = /^\d{3}-\d{3}-\d{4}$/;
-    if (!phonePattern.test(phoneNumber)) {
-        alert('Phone number must be in the format xxx-xxx-xxxx.');
-        return;
-    }
+        function addNewListing() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const price = document.getElementById('price').value.trim();
+            const compensationValue = document.getElementById('compensationValue').value.trim();
 
-    // Ensure agent name format is correct
-    const nameParts = agentName.split(' ');
-    if (nameParts.length < 2) {
-        alert('Agent name must include both first and last names.');
-        return;
-    }
-    
-    // Format compensation
-    const compensation = `${compensationValue}${compensationUnit}`;
+            if (!firstName || !lastName || !address || !price || !compensationValue) {
+                alert('Please fill out all required fields.');
+                return;
+            }
 
-    const newListing = {
-        ListAgentFullName: agentName,
-        ListAgentDirectPhone: phoneNumber,
-        LicenseNumber: licenseNumber,
-        Address: address,
-        City: city,
-        CurrentPrice: price,
-        BuyerAgencyCompensation: compensation,
-        EntryTimestamp: new Date().toISOString(),
-        IsNewListing: true
-    };
+            const newListing = {
+                ListAgentFullName: `${firstName} ${lastName}`,
+                Address: address,
+                CurrentPrice: price,
+                BuyerAgencyCompensation: compensationValue,
+                IsNewListing: true
+            };
 
-    fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newListing)
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            propertyData.push(newListing);
-            clearSearch();
-            displayResults(propertyData); // Update the table in real-time
-            closeAddListingModal(); // Close the modal after submission
-            alert('Listing added successfully.');
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Failed to add listing. Please try again.');
-        });
-}
-
-
-</script>
-
+            fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newListing)
+            })
+            .then(response => response.json())
+            .then(data => {
+                propertyData.push(newListing);
+                clearSearch();
+                displayResults(propertyData); 
+                closeAddListingModal(); 
+                alert('Listing added successfully.');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Failed to add listing. Please try again.');
+            });
+        }
+    </script>
 </body>
-
 </html>
-
-
