@@ -479,21 +479,24 @@
             fetchPropertyData();
             initializeEventListeners();
         });
-
+    
         let propertyData = [];
-
+    
         function fetchPropertyData() {
             document.getElementById('loadingSpinner').style.display = 'block';
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
                 .then(response => response.json())
                 .then(data => {
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [46, 47, 48]), // Check multiple indices if the first is empty
-                        ListAgentDirectPhone: getNextValidValue(row, [44, 45, 49]), // Check multiple indices if the first is empty
-                        Address: getNextValidValue(row, [2, 3, 4]), // Check multiple indices if the first is empty
-                        City: getNextValidValue(row, [6, 7, 8]), // Check multiple indices if the first is empty
-                        BuyerAgencyCompensation: getNextValidValue(row, [53, 54, 55]), // Check multiple indices if the first is empty
-                        IsNewListing: row[105] === 'TRUE' // Boolean check for new listing
+                        ListAgentFullName: getNextValidValue(row, [46]), // Adjusted index for agent name
+                        ListAgentDirectPhone: getNextValidValue(row, [44]), // Adjusted index for agent phone
+                        Address: getNextValidValue(row, [2]), // Adjusted index for address
+                        City: getNextValidValue(row, [6]), // Adjusted index for city
+                        BuyerAgencyCompensation: getNextValidValue(row, [53]), // Adjusted index for compensation
+                        IsNewListing: row[104] === 'TRUE', // Adjusted index for new listing
+                        EntryTimestamp: row[84] || 'N/A', // Adjusted index for entry timestamp
+                        LicenseNumber: row[48] || 'N/A', // Added LicenseNumber
+                        CurrentPrice: row[10] || 'N/A' // Added CurrentPrice
                     }));
                     search();
                 })
@@ -506,7 +509,7 @@
                     document.getElementById('loadingSpinner').style.display = 'none';
                 });
         }
-
+    
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
                 const value = row[indices[i]];
@@ -516,7 +519,7 @@
             }
             return 'N/A'; // Return 'N/A' if no valid value is found
         }
-
+    
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
             document.getElementById('sort').addEventListener('change', search);
@@ -531,7 +534,7 @@
                 }
             });
         }
-
+    
         function search() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             const sortField = document.getElementById('sort').value;
@@ -540,19 +543,19 @@
                     val !== null && val !== undefined && String(val).toLowerCase().includes(query)
                 )
             );
-
+    
             if (sortField) {
                 results.sort((a, b) => (a[sortField] || '').localeCompare(b[sortField] || ''));
             }
-
+    
             displayResults(results);
         }
-
+    
         function displayResults(results) {
             const resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '';
             const noResults = document.getElementById('noResults');
-
+    
             if (results.length === 0) {
                 noResults.style.display = 'block';
                 noResults.textContent = 'No results found.';
@@ -576,9 +579,7 @@
                 });
             }
         }
-
-
-
+    
         function highlight(text) {
             const query = document.getElementById('searchBar').value.toLowerCase();
             if (text === undefined || text === null) {
@@ -586,22 +587,21 @@
             }
             return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
         }
-
-
+    
         function clearSearch() {
             document.getElementById('searchBar').value = '';
             document.getElementById('sort').value = '';
             search();
         }
-
+    
         function openAddListingModal() {
             document.getElementById('addListingModal').style.display = 'block';
         }
-
+    
         function closeAddListingModal() {
             document.getElementById('addListingModal').style.display = 'none';
         }
-
+    
         function addNewListing() {
             const agentName = document.getElementById('agentName').value.trim();
             const phoneNumber = document.getElementById('phoneNumber').value.trim();
@@ -610,12 +610,12 @@
             const city = document.getElementById('city').value.trim();
             const price = document.getElementById('price').value.trim();
             const compensation = document.getElementById('compensation').value.trim();
-
+    
             if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
                 alert('Please fill out all required fields.');
                 return;
             }
-
+    
             const newListing = {
                 ListAgentFullName: agentName,
                 ListAgentDirectPhone: phoneNumber,
@@ -624,7 +624,7 @@
                 BuyerAgencyCompensation: compensation,
                 timestamp: new Date().toISOString(),
             };
-
+    
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -645,6 +645,7 @@
                 });
         }
     </script>
+    
 </body>
 
 </html>
