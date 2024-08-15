@@ -381,12 +381,15 @@
                 .then(response => response.json())
                 .then(data => {
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: row[46] || 'N/A', // Column AU: Agent Name
-                        ListAgentDirectPhone: row[44] || 'N/A', // Column AT: Phone Number
-                        Address: row[2] || 'N/A', // Column C: Address
-                        City: row[6] || 'N/A', // Column G: City
-                        BuyerAgencyCompensation: row[53] || 'N/A', // Column BB: Buyer's Agency Compensation
-                        IsNewListing: row[105] === 'TRUE' // Column CG: IsNewListing
+                        ListAgentFullName: row[46] || 'N/A', // Adjust according to your specific column indices
+                        ListAgentDirectPhone: row[44] || 'N/A',
+                        Address: row[2] || 'N/A',
+                        City: row[6] || 'N/A',
+                        BuyerAgencyCompensation: row[53] || 'N/A',
+                        BathroomsFull: row[4] || 'N/A', // Example additional column
+                        BathroomsHalf: row[5] || 'N/A', // Example additional column
+                        LotSizeAcres: row[0] || 'N/A', // Example additional column
+                        IsNewListing: row[105] === 'TRUE' // Adjust based on the correct column for boolean
                     }));
                     search();
                 })
@@ -399,6 +402,7 @@
                     document.getElementById('loadingSpinner').style.display = 'none';
                 });
         }
+
 
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
