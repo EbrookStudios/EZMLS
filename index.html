@@ -562,15 +562,15 @@
                     const isNew = result.IsNewListing ? '⭐' : '';
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td>${highlight(result.ListAgentFullName)}</td>
-                        <td>${highlight(result.ListAgentDirectPhone)}</td>
-                        <td>${highlight(result.LicenseNumber)}</td>
-                        <td>${highlight(result.Address)}</td>
-                        <td>${highlight(result.City)}</td>
-                        <td>${highlight(result.CurrentPrice)}</td>  <!-- Assuming CurrentPrice represents Price -->
-                        <td>${highlight(result.BuyerAgencyCompensation)}</td>
+                        <td>${highlight(result.ListAgentFullName || 'N/A')}</td>
+                        <td>${highlight(result.ListAgentDirectPhone || 'N/A')}</td>
+                        <td>${highlight(result.LicenseNumber || 'N/A')}</td>
+                        <td>${highlight(result.Address || 'N/A')}</td>
+                        <td>${highlight(result.City || 'N/A')}</td>
+                        <td>${highlight(result.CurrentPrice || 'N/A')}</td>
+                        <td>${highlight(result.BuyerAgencyCompensation || 'N/A')}</td>
                         <td>${isNew}</td>
-                        <td>${highlight(result.EntryTimestamp)}</td>
+                        <td>${highlight(result.EntryTimestamp || 'N/A')}</td>
                     `;
                     resultsContainer.appendChild(tr);
                 });
@@ -578,10 +578,15 @@
         }
 
 
+
         function highlight(text) {
             const query = document.getElementById('searchBar').value.toLowerCase();
-            return text.replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
+            if (text === undefined || text === null) {
+                return ''; // Return an empty string if the text is undefined or null
+            }
+            return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
         }
+
 
         function clearSearch() {
             document.getElementById('searchBar').value = '';
