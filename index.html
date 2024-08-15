@@ -490,15 +490,14 @@
                 .then(data => {
                     console.log(data); // Log the data to inspect its structure
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [49]), // Corrected index for agent name
-                        ListAgentDirectPhone: getNextValidValue(row, [47]), // Corrected index for phone number
-                        LicenseNumber: getNextValidValue(row, [51]), // Corrected index for license number
+                        ListAgentFullName: getNextValidValue(row, [46]), // Corrected index for agent name
+                        ListAgentDirectPhone: findPhoneNumber(row), // Automatically find the phone number
+                        LicenseNumber: getNextValidValue(row, [49]), // Corrected index for license number
                         Address: getNextValidValue(row, [2]), // Corrected index for address
                         City: getNextValidValue(row, [6]), // Corrected index for city
-                        BuyerAgencyCompensation: getNextValidValue(row, [54]), // Corrected index for compensation
-                        IsNewListing: row[82] === 'TRUE', // Corrected index for new listing
-                        EntryTimestamp: row[81] || 'N/A', // Corrected index for entry timestamp
-                        CurrentPrice: row[9] || 'N/A' // Corrected index for current price
+                        BuyerAgencyCompensation: findCompensation(row), // Automatically find the compensation
+                        IsNewListing: row[84] === 'TRUE', // Corrected index for new listing
+                        EntryTimestamp: row[83] || 'N/A' // Corrected index for entry timestamp
                     }));
                     search();
                 })
@@ -512,6 +511,80 @@
                 });
         }
 
+        function fetchPropertyData() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+            fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the data to inspect its structure
+                    propertyData = data.slice(1).map(row => ({
+                        ListAgentFullName: getNextValidValue(row, [46]), // Corrected index for agent name
+                        ListAgentDirectPhone: findPhoneNumber(row), // Automatically find the phone number
+                        LicenseNumber: getNextValidValue(row, [49]), // Corrected index for license number
+                        Address: getNextValidValue(row, [2]), // Corrected index for address
+                        City: getNextValidValue(row, [6]), // Corrected index for city
+                        BuyerAgencyCompensation: findCompensation(row), // Automatically find the compensation
+                        IsNewListing: row[84] === 'TRUE', // Corrected index for new listing
+                        EntryTimestamp: row[83] || 'N/A' // Corrected index for entry timestamp
+                    }));
+                    search();
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('noResults').style.display = 'block';
+                    document.getElementById('noResults').textContent = 'Failed to load data. Please try again.';
+                })
+                .finally(() => {
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                });
+        }
+
+
+        function findPhoneNumber(row) {
+            const phoneRegex = /\d{3}-\d{3}-\d{4}/; // Regular expression to match phone number format
+            for (let i = 0; i < row.length; i++) {
+                const value = row[i];
+                if (phoneRegex.test(value)) {
+                    return value;
+                }
+            }
+            return 'N/A'; // Return 'N/A' if no valid phone number is found
+        }
+
+        function findCompensation(row) {
+            const compensationAmountIndex = 53; // Index where the compensation amount is stored
+            const compensationTypeIndex = 54; // Index where the compensation type ($ or %) is stored
+            const compensationRemarksIndex = 58; // Index where any remarks or explanations are stored
+
+            let compensationAmount = row[compensationAmountIndex] || '';
+            let compensationType = row[compensationTypeIndex] || '';
+            let compensationRemarks = row[compensationRemarksIndex] || '';
+
+            // Combine amount and type if both are available
+            let compensation = (compensationAmount + compensationType).trim();
+
+            // If there's a valid compensation value, use it
+            if (compensation) {
+                return compensation;
+            }
+
+            // If there's a remark, use it
+            if (compensationRemarks) {
+                return compensationRemarks;
+            }
+
+            // Default to 'N/A' if nothing is valid
+            return 'N/A';
+        }
+
+
+
+
+
+
+
+
+
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
                 const value = row[indices[i]];
@@ -521,6 +594,12 @@
             }
             return 'N/A'; // Return 'N/A' if no valid value is found
         }
+
+
+
+
+
+
 
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
