@@ -24,8 +24,8 @@
         /* General Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+            background-color: #f7f8fa;
+            color: #333;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -35,9 +35,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px 30px;
-            background: #222;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            background: #007bff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: sticky;
             top: 0;
@@ -45,51 +45,50 @@
         }
 
         .logo img {
-            max-width: 140px;
+            max-width: 150px;
             height: auto;
             margin-bottom: 10px;
         }
 
         .logo h1 {
-            color: #00d4ff;
+            color: #fff;
             margin: 0;
-            font-size: 26px;
+            font-size: 28px;
         }
 
         .logo p {
-            margin: 10px 0 0;
-            color: #cfcfcf;
-            font-size: 14px;
+            margin: 5px 0 0;
+            color: #e0e0e0;
+            font-size: 16px;
         }
 
         .header-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 600px;
-            margin-top: 10px;
+            justify-content: center;
+            margin-top: 15px;
         }
 
         .add-listing-btn {
-            background-color: #00d4ff;
-            color: #222;
+            background-color: #28a745;
+            color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
             transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 16px;
         }
 
         .add-listing-btn:hover {
-            background-color: #009ebf;
-            color: #ffffff;
+            background-color: #218838;
             transform: translateY(-2px);
         }
 
         main {
             padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .search-container {
@@ -103,21 +102,21 @@
 
         #searchBar {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             padding: 15px;
             font-size: 18px;
             border-radius: 30px;
-            border: 2px solid #00d4ff;
-            background: #222;
-            color: #e0e0e0;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+            border: 2px solid #007bff;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
             transition: all 0.3s ease-in-out;
             margin-bottom: 20px;
         }
 
         #searchBar:focus {
             outline: none;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 1);
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
         }
 
         .controls {
@@ -125,133 +124,153 @@
             justify-content: space-between;
             margin-bottom: 30px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             flex-wrap: wrap;
         }
 
         #sort {
-            padding: 10px;
+            padding: 12px;
             font-size: 18px;
-            border-radius: 5px;
-            background: #222;
-            color: #e0e0e0;
-            border: 2px solid #00d4ff;
+            border-radius: 30px;
+            background: #fff;
+            color: #333;
+            border: 2px solid #007bff;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
             flex: 1;
             margin-right: 15px;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #sort:hover {
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
         }
 
         #clearSearch {
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 18px;
-            border-radius: 5px;
-            background: #00d4ff;
-            color: #222;
+            border-radius: 30px;
+            background: #007bff;
+            color: #fff;
             border: none;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+            transition: background-color 0.3s ease, transform 0.3s ease;
             flex: 1;
         }
 
         #clearSearch:hover {
-            background: #009ebf;
-            color: #ffffff;
+            background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
         #resultsTable {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
-            background-color: #222;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         #resultsTable th,
         #resultsTable td {
             padding: 15px;
-            border: 1px solid #333;
+            border: 1px solid #dee2e6;
             text-align: left;
             font-size: 16px;
         }
 
         #resultsTable th {
-            background-color: #00d4ff;
-            color: #222;
+            background-color: #007bff;
+            color: #fff;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
         #resultsTable td {
-            background-color: #2a2a2a;
-            color: #e0e0e0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        #resultsTable tr:nth-child(even) td {
+            background-color: #e9ecef;
         }
 
         #noResults {
             text-align: center;
-            color: #ff5252;
+            color: #dc3545;
             font-size: 20px;
             margin-top: 30px;
+            font-weight: 600;
         }
 
         .add-listing-form {
             display: none;
             flex-direction: column;
             align-items: center;
-            background: #2a2a2a;
+            background: #f8f9fa;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
-            margin: 0 auto;
+            margin: 30px auto;
         }
 
         .add-listing-form input,
         .add-listing-form select {
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding: 15px;
             border-radius: 10px;
-            border: 2px solid #00d4ff;
-            background: #222;
-            color: #e0e0e0;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            border: 2px solid #007bff;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
             font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .add-listing-form input:focus,
+        .add-listing-form select:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
         }
 
         .add-listing-form button {
             padding: 15px 30px;
-            border-radius: 10px;
-            background: #00d4ff;
-            color: #222;
+            border-radius: 30px;
+            background: #007bff;
+            color: white;
             border: none;
             cursor: pointer;
             font-size: 18px;
+            font-weight: 600;
             transition: all 0.3s ease-in-out;
         }
 
         .add-listing-form button:hover {
-            background: #009ebf;
-            color: #ffffff;
+            background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
         footer {
-            background: #222;
+            background: #007bff;
             padding: 30px;
             text-align: center;
-            color: #e0e0e0;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.7);
+            color: white;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
         footer .disclaimer {
             font-size: 14px;
             margin-top: 15px;
-            color: #ccc;
+            color: #e0e0e0;
         }
 
         @media (max-width: 768px) {
@@ -262,33 +281,86 @@
 
             .controls {
                 flex-direction: column;
+                align-items: center;
             }
 
             #sort,
             #clearSearch {
                 width: 100%;
+                margin-bottom: 15px;
             }
 
             #searchBar {
                 font-size: 16px;
+                width: 100%;
+                margin-bottom: 25px;
             }
 
             #resultsTable th,
             #resultsTable td {
                 font-size: 14px;
+                padding: 10px;
             }
 
             .add-listing-form input,
             .add-listing-form select {
                 font-size: 14px;
+                padding: 12px;
             }
 
             .add-listing-form button {
                 font-size: 16px;
+                padding: 12px 25px;
             }
 
             footer .disclaimer {
                 font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                max-width: 120px;
+            }
+
+            .logo h1 {
+                font-size: 22px;
+            }
+
+            .logo p {
+                font-size: 14px;
+            }
+
+            #sort,
+            #clearSearch {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            #searchBar {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            #resultsTable th,
+            #resultsTable td {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .add-listing-form input,
+            .add-listing-form select {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .add-listing-form button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            footer .disclaimer {
+                font-size: 10px;
             }
         }
     </style>
@@ -298,33 +370,29 @@
     <header>
         <div class="logo">
             <img src="EZ-MLS.png" alt="EZ-MLS Logo">
-            <h1>EZ-MLS</h1>
-            <p>Search and Manage Property Listings</p>
+            <h1>EZ-MLS Property Search</h1>
+            <p>Find the best properties at your fingertips</p>
         </div>
         <div class="header-controls">
-            <button id="addListingButton" class="add-listing-btn">Add Listing</button>
+            <button class="add-listing-btn" id="addListingButton">Add Listing</button>
         </div>
     </header>
 
     <main>
         <div class="search-container">
-            <input type="text" id="searchBar" placeholder="Search by agent, address, city, etc..." aria-label="Search">
-            <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
+            <input type="text" id="searchBar" placeholder="Search properties...">
+            <div class="controls">
+                <select id="sort">
+                    <option value="">Sort by</option>
+                    <option value="ListAgentFullName">Agent Name</option>
+                    <option value="City">City</option>
+                    <option value="BuyerAgencyCompensation">Compensation</option>
+                </select>
+                <button id="clearSearch">Clear Search</button>
+            </div>
         </div>
 
-        <div class="controls">
-            <label for="sort">Sort by:</label>
-            <select id="sort">
-                <option value="">None</option>
-                <option value="ListAgentFullName">Agent Name</option>
-                <option value="Address">Address</option>
-                <option value="City">City</option>
-                <option value="BuyerAgencyCompensation">Buyer's Agency Compensation</option>
-            </select>
-            <button id="clearSearch">Clear Search</button>
-        </div>
-
-        <div id="noResults" style="display: none;">No results found. Please refine your search.</div>
+        <div id="loadingSpinner" style="display: none;">Loading...</div>
 
         <table id="resultsTable">
             <thead>
@@ -333,47 +401,42 @@
                     <th>Phone Number</th>
                     <th>Address</th>
                     <th>City</th>
-                    <th>Buyer's Agency Compensation</th>
-                    <th>New Listing</th>
+                    <th>Compensation</th>
+                    <th>New</th>
                 </tr>
             </thead>
-            <tbody id="results"></tbody>
+            <tbody id="results">
+                <!-- Results will be populated here -->
+            </tbody>
         </table>
 
-        <!-- Add a Listing Section -->
+        <div id="noResults" style="display: none;">No results found.</div>
+
         <div class="add-listing-form" id="addListingForm">
             <h2>Add a New Listing</h2>
-            <div id="listingFormFields">
-                <select id="agentOrHomeowner">
-                    <option value="Agent">Agent</option>
-                    <option value="Homeowner">Homeowner</option>
-                </select>
-                <input type="text" id="agentName" placeholder="Your Name" required>
-                <input type="text" id="phoneNumber" placeholder="Phone Number" required>
-                <input type="text" id="licenseNumber" placeholder="License Number (if Agent)">
-                <input type="text" id="address" placeholder="Property Address" required>
-                <input type="text" id="city" placeholder="City" required>
-                <input type="number" id="price" placeholder="Price" required>
-                <input type="number" id="compensation" placeholder="Buyer's Agency Compensation" required>
-                <button id="submitListing">Submit Listing</button>
-            </div>
+            <input type="text" id="agentName" placeholder="Agent Name">
+            <input type="text" id="phoneNumber" placeholder="Phone Number">
+            <input type="text" id="licenseNumber" placeholder="License Number">
+            <input type="text" id="address" placeholder="Address">
+            <input type="text" id="city" placeholder="City">
+            <input type="text" id="price" placeholder="Price">
+            <input type="text" id="compensation" placeholder="Compensation">
+            <button id="submitListing">Submit Listing</button>
         </div>
     </main>
 
     <footer>
-        <p>Made with <i class="fas fa-heart"></i> by EZ-MLS</p>
-        <div class="disclaimer">
-            <p>Disclaimer: The information provided on this site is for informational purposes only and may not be accurate or up-to-date. Please verify any information before making decisions.</p>
-        </div>
+        <p>&copy; 2024 EZ-MLS. All rights reserved.</p>
+        <p class="disclaimer">Disclaimer: Information on this site is for informational purposes only.</p>
     </footer>
 
     <script>
-        let propertyData = [];
-
         document.addEventListener('DOMContentLoaded', function () {
             fetchPropertyData();
             initializeEventListeners();
         });
+
+        let propertyData = [];
 
         function fetchPropertyData() {
             document.getElementById('loadingSpinner').style.display = 'block';
@@ -381,15 +444,12 @@
                 .then(response => response.json())
                 .then(data => {
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: row[46] || 'N/A', // Adjust according to your specific column indices
-                        ListAgentDirectPhone: row[44] || 'N/A',
-                        Address: row[2] || 'N/A',
-                        City: row[6] || 'N/A',
-                        BuyerAgencyCompensation: row[53] || 'N/A',
-                        BathroomsFull: row[4] || 'N/A', // Example additional column
-                        BathroomsHalf: row[5] || 'N/A', // Example additional column
-                        LotSizeAcres: row[0] || 'N/A', // Example additional column
-                        IsNewListing: row[105] === 'TRUE' // Adjust based on the correct column for boolean
+                        ListAgentFullName: getNextValidValue(row, [46, 47, 48]), // Check multiple indices if the first is empty
+                        ListAgentDirectPhone: getNextValidValue(row, [44, 45, 49]), // Check multiple indices if the first is empty
+                        Address: getNextValidValue(row, [2, 3, 4]), // Check multiple indices if the first is empty
+                        City: getNextValidValue(row, [6, 7, 8]), // Check multiple indices if the first is empty
+                        BuyerAgencyCompensation: getNextValidValue(row, [53, 54, 55]), // Check multiple indices if the first is empty
+                        IsNewListing: row[105] === 'TRUE' // Boolean check for new listing
                     }));
                     search();
                 })
@@ -401,6 +461,17 @@
                 .finally(() => {
                     document.getElementById('loadingSpinner').style.display = 'none';
                 });
+        }
+
+        // Helper function to find the next available value in the row
+        function getNextValidValue(row, indices) {
+            for (let i = 0; i < indices.length; i++) {
+                const value = row[indices[i]];
+                if (value && value.trim() !== "") {
+                    return value;
+                }
+            }
+            return 'N/A'; // Return 'N/A' if no valid value is found
         }
 
 
