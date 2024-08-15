@@ -395,7 +395,9 @@
             const query = document.getElementById('searchBar').value.toLowerCase();
             const sortField = document.getElementById('sort').value;
             let results = propertyData.filter(item => 
-                Object.values(item).some(val => val.toLowerCase().includes(query))
+                Object.values(item).some(val => 
+                    String(val).toLowerCase().includes(query)
+                )
             );
 
             if (sortField) {
@@ -404,6 +406,7 @@
 
             displayResults(results);
         }
+
 
         function displayResults(results) {
             const resultsContainer = document.getElementById('results');
