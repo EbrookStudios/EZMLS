@@ -441,6 +441,7 @@
                     <th>City</th>
                     <th>Compensation</th>
                     <th>New</th>
+                    <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody id="results">
@@ -462,13 +463,13 @@
             <span class="close">&times;</span>
             <form class="add-listing-form" id="addListingForm">
                 <h2>Add a New Listing</h2>
-                <input type="text" id="agentName" placeholder="Agent Name">
-                <input type="text" id="phoneNumber" placeholder="Phone Number">
-                <input type="text" id="licenseNumber" placeholder="License Number">
-                <input type="text" id="address" placeholder="Address">
-                <input type="text" id="city" placeholder="City">
-                <input type="text" id="price" placeholder="Price">
-                <input type="text" id="compensation" placeholder="Compensation">
+                <input type="text" id="agentName" placeholder="Agent Name" required>
+                <input type="text" id="phoneNumber" placeholder="Phone Number" required>
+                <input type="text" id="licenseNumber" placeholder="License Number" required>
+                <input type="text" id="address" placeholder="Address" required>
+                <input type="text" id="city" placeholder="City" required>
+                <input type="text" id="price" placeholder="Price" required>
+                <input type="text" id="compensation" placeholder="Compensation" required>
                 <button type="button" id="submitListing">Submit Listing</button>
             </form>
         </div>
@@ -479,24 +480,25 @@
             fetchPropertyData();
             initializeEventListeners();
         });
-    
+
         let propertyData = [];
-    
+
         function fetchPropertyData() {
             document.getElementById('loadingSpinner').style.display = 'block';
             fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/update')
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data); // Log the data to inspect its structure
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [46]), // Adjusted index for agent name
-                        ListAgentDirectPhone: getNextValidValue(row, [44]), // Adjusted index for agent phone
+                        ListAgentFullName: getNextValidValue(row, [0]), // Adjusted index for agent name
+                        ListAgentDirectPhone: getNextValidValue(row, [1]), // Adjusted index for phone number
+                        LicenseNumber: getNextValidValue(row, [9]), // Adjusted index for license number
                         Address: getNextValidValue(row, [2]), // Adjusted index for address
                         City: getNextValidValue(row, [6]), // Adjusted index for city
-                        BuyerAgencyCompensation: getNextValidValue(row, [53]), // Adjusted index for compensation
-                        IsNewListing: row[104] === 'TRUE', // Adjusted index for new listing
-                        EntryTimestamp: row[84] || 'N/A', // Adjusted index for entry timestamp
-                        LicenseNumber: row[48] || 'N/A', // Added LicenseNumber
-                        CurrentPrice: row[10] || 'N/A' // Added CurrentPrice
+                        BuyerAgencyCompensation: getNextValidValue(row, [23]), // Adjusted index for compensation
+                        IsNewListing: row[3] === 'TRUE', // Adjusted index for new listing
+                        EntryTimestamp: row[13] || 'N/A', // Adjusted index for entry timestamp
+                        CurrentPrice: row[9] || 'N/A' // Adjusted index for current price
                     }));
                     search();
                 })
@@ -509,7 +511,7 @@
                     document.getElementById('loadingSpinner').style.display = 'none';
                 });
         }
-    
+
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
                 const value = row[indices[i]];
@@ -519,7 +521,7 @@
             }
             return 'N/A'; // Return 'N/A' if no valid value is found
         }
-    
+
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
             document.getElementById('sort').addEventListener('change', search);
@@ -534,7 +536,7 @@
                 }
             });
         }
-    
+
         function search() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             const sortField = document.getElementById('sort').value;
@@ -543,109 +545,112 @@
                     val !== null && val !== undefined && String(val).toLowerCase().includes(query)
                 )
             );
-    
+
             if (sortField) {
                 results.sort((a, b) => (a[sortField] || '').localeCompare(b[sortField] || ''));
             }
-    
+
             displayResults(results);
         }
-    
+
         function displayResults(results) {
             const resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '';
             const noResults = document.getElementById('noResults');
-    
-            if (results.length === 0) {
-                noResults.style.display = 'block';
-                noResults.textContent = 'No results found.';
-            } else {
-                noResults.style.display = 'none';
-                results.forEach(result => {
-                    const isNew = result.IsNewListing ? '⭐' : '';
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${highlight(result.ListAgentFullName || 'N/A')}</td>
-                        <td>${highlight(result.ListAgentDirectPhone || 'N/A')}</td>
-                        <td>${highlight(result.LicenseNumber || 'N/A')}</td>
-                        <td>${highlight(result.Address || 'N/A')}</td>
-                        <td>${highlight(result.City || 'N/A')}</td>
-                        <td>${highlight(result.CurrentPrice || 'N/A')}</td>
-                        <td>${highlight(result.BuyerAgencyCompensation || 'N/A')}</td>
-                        <td>${isNew}</td>
-                        <td>${highlight(result.EntryTimestamp || 'N/A')}</td>
-                    `;
-                    resultsContainer.appendChild(tr);
-                });
-            }
-        }
-    
-        function highlight(text) {
-            const query = document.getElementById('searchBar').value.toLowerCase();
-            if (text === undefined || text === null) {
-                return ''; // Return an empty string if the text is undefined or null
-            }
-            return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
-        }
-    
-        function clearSearch() {
-            document.getElementById('searchBar').value = '';
-            document.getElementById('sort').value = '';
-            search();
-        }
-    
-        function openAddListingModal() {
-            document.getElementById('addListingModal').style.display = 'block';
-        }
-    
-        function closeAddListingModal() {
-            document.getElementById('addListingModal').style.display = 'none';
-        }
-    
-        function addNewListing() {
-            const agentName = document.getElementById('agentName').value.trim();
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
-            const licenseNumber = document.getElementById('licenseNumber').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const price = document.getElementById('price').value.trim();
-            const compensation = document.getElementById('compensation').value.trim();
-    
-            if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-    
-            const newListing = {
-                ListAgentFullName: agentName,
-                ListAgentDirectPhone: phoneNumber,
-                Address: address,
-                City: city,
-                BuyerAgencyCompensation: compensation,
-                timestamp: new Date().toISOString(),
-            };
-    
-            fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newListing)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    propertyData.push(newListing);
-                    clearSearch();
-                    displayResults(propertyData); // Update the table in real-time
-                    closeAddListingModal(); // Close the modal after submission
-                    alert('Listing added successfully.');
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('Failed to add listing. Please try again.');
-                });
-        }
-    </script>
-    
+
+if (results.length === 0) {
+    noResults.style.display = 'block';
+    noResults.textContent = 'No results found.';
+} else {
+    noResults.style.display = 'none';
+    results.forEach(result => {
+        const isNew = result.IsNewListing ? '⭐' : '';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${highlight(result.ListAgentFullName || 'N/A')}</td>
+            <td>${highlight(result.ListAgentDirectPhone || 'N/A')}</td>
+            <td>${highlight(result.Address || 'N/A')}</td>
+            <td>${highlight(result.City || 'N/A')}</td>
+            <td>${highlight(result.BuyerAgencyCompensation || 'N/A')}</td>
+            <td>${isNew}</td>
+            <td>${highlight(result.EntryTimestamp || 'N/A')}</td>
+        `;
+        resultsContainer.appendChild(tr);
+    });
+}
+}
+
+function highlight(text) {
+const query = document.getElementById('searchBar').value.toLowerCase();
+if (text === undefined || text === null) {
+    return ''; // Return an empty string if the text is undefined or null
+}
+return text.toString().replace(new RegExp(query, "gi"), match => `<mark>${match}</mark>`);
+}
+
+function clearSearch() {
+document.getElementById('searchBar').value = '';
+document.getElementById('sort').value = '';
+search();
+}
+
+function openAddListingModal() {
+document.getElementById('addListingModal').style.display = 'block';
+}
+
+function closeAddListingModal() {
+document.getElementById('addListingModal').style.display = 'none';
+}
+
+function addNewListing() {
+const agentName = document.getElementById('agentName').value.trim();
+const phoneNumber = document.getElementById('phoneNumber').value.trim();
+const licenseNumber = document.getElementById('licenseNumber').value.trim();
+const address = document.getElementById('address').value.trim();
+const city = document.getElementById('city').value.trim();
+const price = document.getElementById('price').value.trim();
+const compensation = document.getElementById('compensation').value.trim();
+
+if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
+    alert('Please fill out all required fields.');
+    return;
+}
+
+const newListing = {
+    ListAgentFullName: agentName,
+    ListAgentDirectPhone: phoneNumber,
+    LicenseNumber: licenseNumber,
+    Address: address,
+    City: city,
+    CurrentPrice: price,
+    BuyerAgencyCompensation: compensation,
+    EntryTimestamp: new Date().toISOString(),
+    IsNewListing: true
+};
+
+fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newListing)
+})
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        propertyData.push(newListing);
+        clearSearch();
+        displayResults(propertyData); // Update the table in real-time
+        closeAddListingModal(); // Close the modal after submission
+        alert('Listing added successfully.');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Failed to add listing. Please try again.');
+    });
+}
+</script>
+
 </body>
 
 </html>
+
+
