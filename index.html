@@ -463,17 +463,41 @@
             <span class="close">&times;</span>
             <form class="add-listing-form" id="addListingForm">
                 <h2>Add a New Listing</h2>
-                <input type="text" id="agentName" placeholder="Agent Name" required>
-                <input type="text" id="phoneNumber" placeholder="Phone Number" required>
-                <input type="text" id="licenseNumber" placeholder="License Number" required>
-                <input type="text" id="address" placeholder="Address" required>
-                <input type="text" id="city" placeholder="City" required>
-                <input type="text" id="price" placeholder="Price" required>
-                <input type="text" id="compensation" placeholder="Compensation" required>
+                <label for="agentName">Agent Name:</label>
+                <input type="text" id="agentName" name="agentName" placeholder="First Last" required>
+                
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" pattern="\d{3}-\d{3}-\d{4}" placeholder="xxx-xxx-xxxx" required>
+                
+                <label for="licenseNumber">License Number:</label>
+                <input type="text" id="licenseNumber" name="licenseNumber" required>
+                
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+                
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" required>
+                
+                <label for="compensationValue">Compensation Amount:</label>
+                <input type="text" id="compensationValue" name="compensationValue" required>
+                
+                <label for="compensationUnit">Compensation Unit:</label>
+                <select id="compensationUnit" name="compensationUnit" required>
+                    <option value="%">%</option>
+                    <option value="$">$</option>
+                </select>
+                
                 <button type="button" id="submitListing">Submit Listing</button>
             </form>
         </div>
     </div>
+
+    <script src="script.js"></script>
+</body>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -578,13 +602,6 @@
         }
 
 
-
-
-
-
-
-
-
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
                 const value = row[indices[i]];
@@ -682,50 +699,70 @@ document.getElementById('addListingModal').style.display = 'none';
 }
 
 function addNewListing() {
-const agentName = document.getElementById('agentName').value.trim();
-const phoneNumber = document.getElementById('phoneNumber').value.trim();
-const licenseNumber = document.getElementById('licenseNumber').value.trim();
-const address = document.getElementById('address').value.trim();
-const city = document.getElementById('city').value.trim();
-const price = document.getElementById('price').value.trim();
-const compensation = document.getElementById('compensation').value.trim();
+    const agentName = document.getElementById('agentName').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const licenseNumber = document.getElementById('licenseNumber').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const price = document.getElementById('price').value.trim();
+    const compensationValue = document.getElementById('compensationValue').value.trim();
+    const compensationUnit = document.getElementById('compensationUnit').value.trim();
+    
+    if (!agentName || !phoneNumber || !address || !city || !price || !compensationValue || !compensationUnit) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+    
+    // Ensure phone number format is correct
+    const phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+    if (!phonePattern.test(phoneNumber)) {
+        alert('Phone number must be in the format xxx-xxx-xxxx.');
+        return;
+    }
 
-if (!agentName || !phoneNumber || !address || !city || !price || !compensation) {
-    alert('Please fill out all required fields.');
-    return;
-}
+    // Ensure agent name format is correct
+    const nameParts = agentName.split(' ');
+    if (nameParts.length < 2) {
+        alert('Agent name must include both first and last names.');
+        return;
+    }
+    
+    // Format compensation
+    const compensation = `${compensationValue}${compensationUnit}`;
 
-const newListing = {
-    ListAgentFullName: agentName,
-    ListAgentDirectPhone: phoneNumber,
-    LicenseNumber: licenseNumber,
-    Address: address,
-    City: city,
-    CurrentPrice: price,
-    BuyerAgencyCompensation: compensation,
-    EntryTimestamp: new Date().toISOString(),
-    IsNewListing: true
-};
+    const newListing = {
+        ListAgentFullName: agentName,
+        ListAgentDirectPhone: phoneNumber,
+        LicenseNumber: licenseNumber,
+        Address: address,
+        City: city,
+        CurrentPrice: price,
+        BuyerAgencyCompensation: compensation,
+        EntryTimestamp: new Date().toISOString(),
+        IsNewListing: true
+    };
 
-fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newListing)
-})
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        propertyData.push(newListing);
-        clearSearch();
-        displayResults(propertyData); // Update the table in real-time
-        closeAddListingModal(); // Close the modal after submission
-        alert('Listing added successfully.');
+    fetch('https://ez-mls2-60ec53102e5c.herokuapp.com/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newListing)
     })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to add listing. Please try again.');
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            propertyData.push(newListing);
+            clearSearch();
+            displayResults(propertyData); // Update the table in real-time
+            closeAddListingModal(); // Close the modal after submission
+            alert('Listing added successfully.');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Failed to add listing. Please try again.');
+        });
 }
+
+
 </script>
 
 </body>
