@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EZ-MLS Property Search</title>
-
-    <!-- Favicon -->
     <link rel="icon" href="EZ-MLS.png" type="image/png">
-
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="EZ-MLS Property Search">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-github-pages-url/">
@@ -18,58 +13,49 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="EZ-MLS Property Search preview image">
     <meta property="og:description" content="Search and find property information.">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* General Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f8fa;
-            color: #333;
+            background-color: #121212; /* Dark background for body */
+            color: #ccc; /* Light grey text for better readability on dark background */
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
-
         header {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background: #007bff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: #333; /* Darker shade for header */
+            color: #fff; /* White text color */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-
         .logo img {
             max-width: 150px;
             height: auto;
             margin-bottom: 10px;
         }
-
         .logo h1 {
-            color: #fff;
             margin: 0;
             font-size: 28px;
         }
-
         .logo p {
             margin: 5px 0 0;
-            color: #e0e0e0;
             font-size: 16px;
         }
-
         .header-controls {
             display: flex;
             justify-content: center;
             margin-top: 15px;
         }
-
         .add-listing-btn {
-            background-color: #28a745;
+            background-color: #4CAF50; /* Green button */
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -79,13 +65,10 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-size: 16px;
         }
-
         .add-listing-btn:hover {
-            background-color: #218838;
+            background-color: #388E3C;
             transform: translateY(-2px);
         }
-
-        /* Popup Form Styles */
         .modal {
             display: none;
             position: fixed;
@@ -95,47 +78,43 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8); /* Darker modal background */
             padding-top: 60px;
         }
-
         .modal-content {
-            background-color: #fefefe;
+            background-color: #222; /* Dark background for modal content */
+            color: #ddd; /* Light text color for readability */
             margin: 5% auto;
             padding: 20px;
-            border: 1px solid #888;
+            border: 1px solid #444; /* Dark border */
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
-
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
         .close:hover,
         .close:focus {
-            color: black;
+            color: #fff;
             text-decoration: none;
             cursor: pointer;
         }
-
         .add-listing-form {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #f8f9fa;
+            background: #333; /* Dark background for forms */
             padding: 30px;
             border-radius: 15px;
             max-width: 600px;
             width: 100%;
             margin: 30px auto;
         }
-
         .add-listing-form input,
         .add-listing-form select {
             width: 100%;
@@ -143,23 +122,21 @@
             padding: 15px;
             border-radius: 10px;
             border: 2px solid #007bff;
-            background: #fff;
-            color: #333;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+            background: #222; /* Dark backgrounds for input */
+            color: #ddd; /* Light text color */
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
             font-size: 16px;
             transition: all 0.3s ease-in-out;
         }
-
         .add-listing-form input:focus,
         .add-listing-form select:focus {
             outline: none;
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
         }
-
         .add-listing-form button {
             padding: 15px 30px;
             border-radius: 30px;
-            background: #007bff;
+            background: #007bff; /* Consistent blue for buttons */
             color: white;
             border: none;
             cursor: pointer;
@@ -167,18 +144,15 @@
             font-weight: 600;
             transition: all 0.3s ease-in-out;
         }
-
         .add-listing-form button:hover {
             background-color: #0056b3;
             transform: translateY(-2px);
         }
-
         main {
             padding: 30px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .search-container {
             display: flex;
             align-items: center;
@@ -187,7 +161,6 @@
             flex-direction: column;
             width: 100%;
         }
-
         #searchBar {
             width: 100%;
             max-width: 600px;
@@ -195,18 +168,16 @@
             font-size: 18px;
             border-radius: 30px;
             border: 2px solid #007bff;
-            background: #fff;
-            color: #333;
+            background: #222;
+            color: #ddd;
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
             transition: all 0.3s ease-in-out;
             margin-bottom: 20px;
         }
-
         #searchBar:focus {
             outline: none;
             box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
         }
-
         .controls {
             display: flex;
             justify-content: space-between;
@@ -215,7 +186,6 @@
             max-width: 600px;
             flex-wrap: wrap;
         }
-
         #sort {
             padding: 12px;
             font-size: 18px;
@@ -230,11 +200,9 @@
             margin-bottom: 10px;
             transition: all 0.3s ease;
         }
-
         #sort:hover {
             box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
         }
-
         #clearSearch {
             padding: 12px 20px;
             font-size: 18px;
@@ -247,163 +215,92 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             flex: 1;
         }
-
         #clearSearch:hover {
             background-color: #0056b3;
             transform: translateY(-2px);
         }
-
         #resultsTable {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #222;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             overflow: hidden;
         }
-
         #resultsTable th,
         #resultsTable td {
             padding: 15px;
-            border: 1px solid #dee2e6;
-            text-align: left;
+            border: 1px solid #444;
+            text-align:left;
             font-size: 16px;
+            color: #ddd;
         }
-
         #resultsTable th {
-            background-color: #007bff;
-            color: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            background-color: #333;
         }
-
         #resultsTable td {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #222;
         }
-
         #resultsTable tr:nth-child(even) td {
-            background-color: #e9ecef;
+            background-color: #1c1c1c;
         }
-
         #noResults {
             text-align: center;
-            color: #dc3545;
+            color: #ff6e6e;
             font-size: 20px;
             margin-top: 30px;
             font-weight: 600;
         }
-
         footer {
-            background: #007bff;
+            background: #333;
+            color: #fff;
             padding: 30px;
             text-align: center;
-            color: white;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
         }
-
         footer .disclaimer {
             font-size: 14px;
-            margin-top: 15px;
-            color: #e0e0e0;
+            color: #ccc;
         }
-
         @media (max-width: 768px) {
-            .header-controls {
+            .header-controls, .controls {
                 flex-direction: column;
-                align-items: center;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            #sort,
-            #clearSearch {
-                width: 100%;
-                margin-bottom: 15px;
-            }
-
-            #searchBar {
-                font-size: 16px;
-                width: 100%;
-                margin-bottom: 25px;
-            }
-
-            #resultsTable th,
-            #resultsTable td {
-                font-size: 14px;
-                padding: 10px;
-            }
-
-            .add-listing-form input,
-            .add-listing-form select {
-                font-size: 14px;
-                padding: 12px;
-            }
-
-            .add-listing-form button {
-                font-size: 16px;
-                padding: 12px 25px;
-            }
-
-            footer .disclaimer {
-                font-size: 12px;
             }
         }
-
         @media (max-width: 480px) {
             .logo img {
-                max-width: 120px;
+                max-width: 100px;
             }
-
             .logo h1 {
-                font-size: 22px;
+                font-size: 20px;
             }
-
             .logo p {
+                font-size: 12px;
+            }
+            #sort, #clearSearch {
                 font-size: 14px;
+                padding: 8px;
             }
-
-            #sort,
-            #clearSearch {
-                font-size: 16px;
-                padding: 10px;
-            }
-
             #searchBar {
                 font-size: 14px;
-                padding: 12px;
+                padding: 10px;
             }
-
-            #resultsTable th,
-            #resultsTable td {
+            #resultsTable th, #resultsTable td {
                 font-size: 12px;
                 padding: 8px;
             }
-
-            .add-listing-form input,
-            .add-listing-form select {
+            .add-listing-form input, .add-listing-form select, .add-listing-form button {
                 font-size: 12px;
-                padding: 10px;
+                padding: 8px;
             }
-
-            .add-listing-form button {
-                font-size: 14px;
-                padding: 10px 20px;
-            }
-
             footer .disclaimer {
                 font-size: 10px;
             }
         }
     </style>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -415,7 +312,6 @@
             <button class="add-listing-btn" id="addListingButton">Add Listing</button>
         </div>
     </header>
-
     <main>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Search properties...">
@@ -429,9 +325,7 @@
                 <button id="clearSearch">Clear Search</button>
             </div>
         </div>
-
         <div id="loadingSpinner" style="display: none;">Loading...</div>
-
         <table id="resultsTable">
             <thead>
                 <tr>
@@ -448,35 +342,23 @@
                 <!-- Results will be populated here -->
             </tbody>
         </table>
-
         <div id="noResults" style="display: none;">No results found.</div>
     </main>
-
     <footer>
         <p>&copy; 2024 EZ-MLS. All rights reserved.</p>
         <p class="disclaimer">Disclaimer: Information on this site is for informational purposes only.</p>
     </footer>
-
-    <!-- The Modal -->
     <div id="addListingModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form class="add-listing-form" id="addListingForm">
                 <h2>Add a New Listing</h2>
                 <label for="agentName">Agent Name:</label>
-                <input type="text" id="agentName" name="agentName" placeholder="First Last" required>
-                
-                <label for="phoneNumber">Phone Number:</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" pattern="\d{3}-\d{3}-\d{4}" placeholder="xxx-xxx-xxxx" required>
-                
-                <label for="licenseNumber">License Number:</label>
-                <input type="text" id="licenseNumber" name="licenseNumber" required>
+                <input type="text" id="agentName" name="agentName" autocomplete="off" placeholder="Start typing name..." required>
+                <div id="agentList" class="suggestions"></div>
                 
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" required>
-                
-                <label for="city">City:</label>
-                <input type="text" id="city" name="city" required>
                 
                 <label for="price">Price:</label>
                 <input type="text" id="price" name="price" required>
@@ -484,22 +366,39 @@
                 <label for="compensationValue">Compensation Amount:</label>
                 <input type="text" id="compensationValue" name="compensationValue" required>
                 
-                <label for="compensationUnit">Compensation Unit:</label>
-                <select id="compensationUnit" name="compensationUnit" required>
-                    <option value="%">%</option>
-                    <option value="$">$</option>
-                </select>
-                
                 <button type="button" id="submitListing">Submit Listing</button>
             </form>
+            
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
+</html>
+
+
 
 
     <script>
+        function formatPhoneNumber(input) {
+            let numbers = input.value.replace(/\D/g, '');
+            let formattedNumber = '';
+            for (let i = 0; i < numbers.length; i++) {
+                if (i === 3 || i === 6) {
+                    formattedNumber += '-';
+                }
+                formattedNumber += numbers[i];
+            }
+            input.value = formattedNumber.substring(0, 12); // Limit to the format xxx-xxx-xxxx
+        }
+
+
+        document.getElementById('submitListing').addEventListener('click', function() {
+            var form = document.getElementById('addListingForm');
+            if (form.checkValidity()) {
+                form.submit();
+            } else {
+                alert('Please fill out all required fields correctly.');
+            }
+        });
         document.addEventListener('DOMContentLoaded', function () {
             fetchPropertyData();
             initializeEventListeners();
