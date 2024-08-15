@@ -85,6 +85,94 @@
             transform: translateY(-2px);
         }
 
+        /* Popup Form Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .add-listing-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        .add-listing-form input,
+        .add-listing-form select {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .add-listing-form input:focus,
+        .add-listing-form select:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .add-listing-form button {
+            padding: 15px 30px;
+            border-radius: 30px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .add-listing-form button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
         main {
             padding: 30px 20px;
             max-width: 1200px;
@@ -206,56 +294,6 @@
             font-size: 20px;
             margin-top: 30px;
             font-weight: 600;
-        }
-
-        .add-listing-form {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-            margin: 30px auto;
-        }
-
-        .add-listing-form input,
-        .add-listing-form select {
-            width: 100%;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #007bff;
-            background: #fff;
-            color: #333;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
-            font-size: 16px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .add-listing-form input:focus,
-        .add-listing-form select:focus {
-            outline: none;
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
-        }
-
-        .add-listing-form button {
-            padding: 15px 30px;
-            border-radius: 30px;
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .add-listing-form button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
         }
 
         footer {
@@ -411,24 +449,30 @@
         </table>
 
         <div id="noResults" style="display: none;">No results found.</div>
-
-        <div class="add-listing-form" id="addListingForm">
-            <h2>Add a New Listing</h2>
-            <input type="text" id="agentName" placeholder="Agent Name">
-            <input type="text" id="phoneNumber" placeholder="Phone Number">
-            <input type="text" id="licenseNumber" placeholder="License Number">
-            <input type="text" id="address" placeholder="Address">
-            <input type="text" id="city" placeholder="City">
-            <input type="text" id="price" placeholder="Price">
-            <input type="text" id="compensation" placeholder="Compensation">
-            <button id="submitListing">Submit Listing</button>
-        </div>
     </main>
 
     <footer>
         <p>&copy; 2024 EZ-MLS. All rights reserved.</p>
         <p class="disclaimer">Disclaimer: Information on this site is for informational purposes only.</p>
     </footer>
+
+    <!-- The Modal -->
+    <div id="addListingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="add-listing-form" id="addListingForm">
+                <h2>Add a New Listing</h2>
+                <input type="text" id="agentName" placeholder="Agent Name">
+                <input type="text" id="phoneNumber" placeholder="Phone Number">
+                <input type="text" id="licenseNumber" placeholder="License Number">
+                <input type="text" id="address" placeholder="Address">
+                <input type="text" id="city" placeholder="City">
+                <input type="text" id="price" placeholder="Price">
+                <input type="text" id="compensation" placeholder="Compensation">
+                <button type="button" id="submitListing">Submit Listing</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -463,7 +507,6 @@
                 });
         }
 
-        // Helper function to find the next available value in the row
         function getNextValidValue(row, indices) {
             for (let i = 0; i < indices.length; i++) {
                 const value = row[indices[i]];
@@ -474,13 +517,19 @@
             return 'N/A'; // Return 'N/A' if no valid value is found
         }
 
-
         function initializeEventListeners() {
             document.getElementById('searchBar').addEventListener('input', search);
             document.getElementById('sort').addEventListener('change', search);
             document.getElementById('clearSearch').addEventListener('click', clearSearch);
-            document.getElementById('addListingButton').addEventListener('click', showAddListingForm);
+            document.getElementById('addListingButton').addEventListener('click', openAddListingModal);
             document.getElementById('submitListing').addEventListener('click', addNewListing);
+            document.querySelector('.close').addEventListener('click', closeAddListingModal);
+            window.addEventListener('click', function (event) {
+                const modal = document.getElementById('addListingModal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
         }
 
         function search() {
@@ -536,8 +585,12 @@
             search();
         }
 
-        function showAddListingForm() {
-            document.getElementById('addListingForm').style.display = 'flex';
+        function openAddListingModal() {
+            document.getElementById('addListingModal').style.display = 'block';
+        }
+
+        function closeAddListingModal() {
+            document.getElementById('addListingModal').style.display = 'none';
         }
 
         function addNewListing() {
@@ -573,6 +626,8 @@
                     console.log('Success:', data);
                     propertyData.push(newListing);
                     clearSearch();
+                    displayResults(propertyData); // Update the table in real-time
+                    closeAddListingModal(); // Close the modal after submission
                     alert('Listing added successfully.');
                 })
                 .catch((error) => {
