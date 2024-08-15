@@ -317,6 +317,7 @@
                     <th>Address</th>
                     <th>City</th>
                     <th>Buyer's Agency Compensation</th>
+                    <th>New Listing</th>
                 </tr>
             </thead>
             <tbody id="results"></tbody>
@@ -363,11 +364,12 @@
                 .then(response => response.json())
                 .then(data => {
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: row[46] || 'N/A', // Column AU: Agent Name
-                        ListAgentDirectPhone: row[40] || 'N/A', // Column AS: Phone Number
+                        ListAgentFullName: row[6] || 'N/A', // Column AU: Agent Name
+                        ListAgentDirectPhone: row[44] || 'N/A', // Column AT: Phone Number
                         Address: row[2] || 'N/A', // Column C: Address
                         City: row[6] || 'N/A', // Column G: City
-                        BuyerAgencyCompensation: row[53] || 'N/A' // Column BB: Buyer's Agency Compensation
+                        BuyerAgencyCompensation: row[53] || 'N/A', // Column BB: Buyer's Agency Compensation
+                        IsNewListing: row[105] === 'TRUE' // Column CG: IsNewListing
                     }));
                     search();
                 })
@@ -414,6 +416,7 @@
             } else {
                 noResults.style.display = 'none';
                 results.forEach(result => {
+                    const isNew = result.IsNewListing ? '⭐' : '';
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${highlight(result.ListAgentFullName)}</td>
@@ -421,6 +424,7 @@
                         <td>${highlight(result.Address)}</td>
                         <td>${highlight(result.City)}</td>
                         <td>${highlight(result.BuyerAgencyCompensation)}</td>
+                        <td>${isNew}</td>
                     `;
                     resultsContainer.appendChild(tr);
                 });
