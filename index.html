@@ -490,15 +490,15 @@
                 .then(data => {
                     console.log(data); // Log the data to inspect its structure
                     propertyData = data.slice(1).map(row => ({
-                        ListAgentFullName: getNextValidValue(row, [0]), // Adjusted index for agent name
-                        ListAgentDirectPhone: getNextValidValue(row, [1]), // Adjusted index for phone number
-                        LicenseNumber: getNextValidValue(row, [9]), // Adjusted index for license number
-                        Address: getNextValidValue(row, [2]), // Adjusted index for address
-                        City: getNextValidValue(row, [6]), // Adjusted index for city
-                        BuyerAgencyCompensation: getNextValidValue(row, [23]), // Adjusted index for compensation
-                        IsNewListing: row[3] === 'TRUE', // Adjusted index for new listing
-                        EntryTimestamp: row[13] || 'N/A', // Adjusted index for entry timestamp
-                        CurrentPrice: row[9] || 'N/A' // Adjusted index for current price
+                        ListAgentFullName: getNextValidValue(row, [49]), // Corrected index for agent name
+                        ListAgentDirectPhone: getNextValidValue(row, [47]), // Corrected index for phone number
+                        LicenseNumber: getNextValidValue(row, [51]), // Corrected index for license number
+                        Address: getNextValidValue(row, [2]), // Corrected index for address
+                        City: getNextValidValue(row, [6]), // Corrected index for city
+                        BuyerAgencyCompensation: getNextValidValue(row, [54]), // Corrected index for compensation
+                        IsNewListing: row[82] === 'TRUE', // Corrected index for new listing
+                        EntryTimestamp: row[81] || 'N/A', // Corrected index for entry timestamp
+                        CurrentPrice: row[9] || 'N/A' // Corrected index for current price
                     }));
                     search();
                 })
