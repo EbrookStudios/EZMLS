@@ -564,15 +564,19 @@
                     tr.innerHTML = `
                         <td>${highlight(result.ListAgentFullName)}</td>
                         <td>${highlight(result.ListAgentDirectPhone)}</td>
+                        <td>${highlight(result.LicenseNumber)}</td>
                         <td>${highlight(result.Address)}</td>
                         <td>${highlight(result.City)}</td>
+                        <td>${highlight(result.CurrentPrice)}</td>  <!-- Assuming CurrentPrice represents Price -->
                         <td>${highlight(result.BuyerAgencyCompensation)}</td>
                         <td>${isNew}</td>
+                        <td>${highlight(result.EntryTimestamp)}</td>
                     `;
                     resultsContainer.appendChild(tr);
                 });
             }
         }
+
 
         function highlight(text) {
             const query = document.getElementById('searchBar').value.toLowerCase();
